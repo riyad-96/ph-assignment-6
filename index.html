@@ -90,7 +90,7 @@
           <div class="grid-cols-[300px_1fr_300px] gap-4 md:grid">
             <div class="category-container">
               <div>
-                <h4>Categories</h4>
+                <h4 class="mb-4 text-xl font-semibold">Categories</h4>
                 <div data-categories-container class="grid">
                   <!-- Categories are added through js -->
                 </div>
@@ -104,14 +104,14 @@
             </div>
 
             <div class="cart-container">
-              <div class="bg-white p-4">
-                <h4>Your Cart</h4>
-                <div data-cart-container>
+              <div class="rounded-lg bg-white p-4">
+                <h4 class="mb-4 text-xl font-semibold">Your Cart</h4>
+                <div data-cart-container class="mb-2 grid gap-2">
                   <!-- Cart items are added through js -->
                 </div>
-                <div>
+                <div class="flex justify-between border-t border-zinc-200 pt-2">
                   <span>Total:</span>
-                  <span data-total-cost>৳</span>
+                  <span data-total-cost>৳0</span>
                 </div>
               </div>
             </div>
