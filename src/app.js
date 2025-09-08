@@ -2,6 +2,7 @@
 const navMenu = document.querySelector('[data-nav]');
 const categoriesContainer = document.querySelector('[data-categories-container]');
 const plantsContainer = document.querySelector('[data-plants-container]');
+const categoryModal = document.querySelector('[data-category-modal]');
 
 // svg's
 const svg = {
@@ -14,15 +15,17 @@ let plants = [];
 let categories = ['all'];
 
 function renderCategories() {
-  categoriesContainer.innerHTML = categories.map((eachCategory) => `<button data-category-btn="${eachCategory}" class="category-select-btn ${eachCategory == 'all' ? 'active' : ''}">${eachCategory}</button>`).join('');
+  categoriesContainer.innerHTML = categories.map((category, index) => `<button data-category-btn data-category-id="${index}" class="category-select-btn ${index == 0 ? 'active' : ''}">${category}</button>`).join('');
 }
 
 function eachPlantCard(eachPlant) {
   const { id, category, name, description, price, image } = eachPlant;
   return `
     <div class="each-plant-card">
-      <div class="each-plant-card-img-container">
-        <img class="size-full object-cover object-center" src="${image}" alt="${name}" loading="lazy"/>
+      <div class="each-plant-card-img-container relative">
+        <span class="absolute inset-0 z-5"></span>
+        <div class="img-loader absolute inset-0 z-2"></div>
+        <img data-plant-img class="size-full object-cover object-center" src="${image}" alt="${name}" loading="lazy"/>
       </div>
       <div class="each-plant-card-text-container">
         <h5>${name}</h5>
@@ -37,39 +40,85 @@ function eachPlantCard(eachPlant) {
   `;
 }
 
-function renderPlants(category = 'all') {
-  plantsContainer.innerHTML =
-    category === 'all'
-      ? plants.map((eachPlant) => eachPlantCard(eachPlant)).join('')
-      : plants
-          .filter((eachPlant) => eachPlant.category == category)
-          .map((eachPlant) => eachPlantCard(eachPlant))
-          .join('');
-}
-
-function renderWithFetchedData(data) {
-  plants = data.plants;
-
-  plants.forEach((eachPlant) => {
-    const category = eachPlant.category;
-    if (!categories.includes(category)) {
-      categories.push(category);
+plantsContainer.addEventListener(
+  'load',
+  (e) => {
+    const img = e.target.closest('[data-plant-img]');
+    if (img) {
+      img.previousElementSibling.classList.add('hide');
+      img.classList.add('show');
     }
-  });
+  },
+  true,
+);
 
-  renderCategories();
-  renderPlants();
+function renderPlants(plantsData) {
+  plantsContainer.innerHTML = plantsData.map((eachPlant) => eachPlantCard(eachPlant)).join('');
 }
 
-async function fetchPlantsData() {
-  const url = 'https://openapi.programming-hero.com/api/plants';
-  const res = await fetch(url);
-  const data = await res.json();
-  console.log(data);
-  renderWithFetchedData(data);
+let timeout;
+
+async function renderPlantsByCategory(categoryId = '0') {
+  plantsContainer.innerHTML = `
+    <div class="rounded-lg bg-white p-4 shadow-sm">
+      <div class="flex justify-center h-[300px] items-center gap-1">
+        <div class="animate-[ping_1s_infinite] size-[8px] rounded-full bg-zinc-600"></div>
+        <div class="animate-[ping_1s_100ms_infinite] size-[8px] rounded-full bg-zinc-600"></div>
+        <div class="animate-[ping_1s_200ms_infinite] size-[8px] rounded-full bg-zinc-600"></div>
+        <div class="animate-[ping_1s_300ms_infinite] size-[8px] rounded-full bg-zinc-600"></div>
+      </div>
+    </div>`;
+  if (timeout) {
+    clearTimeout(timeout);
+  }
+  timeout = setTimeout(async () => {
+    if (categoryId == 0) {
+      try {
+        const plantsUrl = 'https://openapi.programming-hero.com/api/plants';
+        const res = await fetch(plantsUrl);
+        const data = await res.json();
+        renderPlants(data.plants);
+      } catch (err) {
+        console.error(err);
+      }
+      return;
+    }
+
+    try {
+      const categoryUrl = `https://openapi.programming-hero.com/api/category/${categoryId}`;
+      const res = await fetch(categoryUrl);
+      const data = await res.json();
+      renderPlants(data.plants);
+    } catch (err) {
+      console.error(err);
+    }
+  }, 500);
 }
 
-fetchPlantsData();
+//! --- Base function ---
+(async () => {
+  try {
+    const url = 'https://openapi.programming-hero.com/api/plants';
+    const res = await fetch(url);
+    const data = await res.json();
+
+    plants = data.plants;
+
+    plants.forEach((eachPlant) => {
+      const category = eachPlant.category;
+      if (!categories.includes(category)) {
+        categories.push(category);
+      }
+    });
+
+    renderCategories();
+    setTimeout(() => {
+      renderPlants(plants);
+    }, 500);
+  } catch (err) {
+    console.error(err);
+  }
+})();
 
 // add to cart
 const cartList = [];
@@ -116,7 +165,7 @@ function removeFromCart(btn) {
   }
 }
 
-// listener
+//! listeners
 document.addEventListener('click', (e) => {
   // navigation menu functionality
   const navOpenBtn = e.target.closest('[data-nav-open-btn]');
@@ -145,7 +194,8 @@ document.addEventListener('click', (e) => {
   if (categoryBtn) {
     document.querySelectorAll('[data-category-btn]').forEach((btn) => btn.classList.remove('active'));
     categoryBtn.classList.add('active');
-    renderPlants(categoryBtn.dataset.categoryBtn);
+    categoryModal.classList.remove('show');
+    renderPlantsByCategory(categoryBtn.dataset.categoryId);
   }
 
   // add to cart
@@ -157,5 +207,19 @@ document.addEventListener('click', (e) => {
   const removeFromCartBtn = e.target.closest('[data-cart-remove-btn]');
   if (removeFromCartBtn) {
     removeFromCart(removeFromCartBtn);
+  }
+
+  // Category & cart modal
+  const categoryModalBtn = e.target.closest('[data-category-modal-btn]');
+  if (categoryModalBtn) {
+    categoryModal.classList.add('show');
+  }
+
+  const categoryModalContainer = e.target.closest('[data-category-modal-container]');
+  if (categoryModalContainer) return;
+
+  const categoryModalMain = e.target.closest('[data-category-modal]');
+  if (categoryModalMain) {
+    categoryModal.classList.remove('show');
   }
 });
