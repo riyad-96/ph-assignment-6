@@ -192,22 +192,19 @@ document.addEventListener('click', (e) => {
   // navigation menu functionality
   const navOpenBtn = e.target.closest('[data-nav-open-btn]');
   if (navOpenBtn) {
-    navMenu.classList.remove('hide');
+    navMenu.classList.add('show');
     return;
   }
-
   const navCloseBtn = e.target.closest('[data-nav-close-btn]');
   if (navCloseBtn) {
-    navMenu.classList.add('hide');
+    navMenu.classList.remove('show');
     return;
   }
-
   const navContainer = e.target.closest('[data-nav-container]');
   if (navContainer) return;
-
   const nav = e.target.closest('[data-nav]');
   if (nav) {
-    navMenu.classList.add('hide');
+    navMenu.classList.remove('show');
     return;
   }
 

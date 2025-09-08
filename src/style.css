@@ -33,8 +33,33 @@ img {
 }
 
 @media (width < 768px) {
-  [data-nav].hide {
+  [data-nav] {
     display: none;
+    opacity: 0;
+    transition-property: display opacity;
+    transition-duration: 300ms;
+    transition-behavior: allow-discrete;
+
+    [data-nav-container] {
+      translate: 100% 0;
+      transition: translate 250ms;
+    }
+  }
+  [data-nav].show {
+    display: flex;
+    opacity: 1;
+
+    [data-nav-container] {
+      translate: 0 0;
+    }
+
+    @starting-style {
+      opacity: 0;
+
+      [data-nav-container] {
+        translate: 100% 0;
+      }
+    }
   }
 }
 
