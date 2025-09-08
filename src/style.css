@@ -10,6 +10,11 @@
   --footer-copyright-bg: #14532d;
 }
 
+html {
+  color-scheme: dark light;
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Inter', sans-serif;
   color: var(--neutral-dark);
@@ -34,30 +39,35 @@ img {
 }
 
 @media (width < 1024px) {
-  .category-modal {
+  .category-modal,
+  .cart-modal {
     display: none;
     opacity: 0;
     transition-property: display opacity;
     transition-duration: 300ms;
     transition-behavior: allow-discrete;
 
-    .category-modal-container {
+    .category-modal-container,
+    .cart-modal-container {
       translate: -100% 0;
       transition: translate 250ms;
     }
   }
-  .category-modal.show {
+  .category-modal.show,
+  .cart-modal.show {
     display: initial;
     opacity: 1;
 
-    .category-modal-container {
+    .category-modal-container,
+    .cart-modal-container {
       translate: 0 0;
     }
 
     @starting-style {
       opacity: 0;
 
-      .category-modal-container {
+      .category-modal-container,
+      .cart-modal-container {
         translate: -100% 0;
       }
     }
@@ -94,7 +104,7 @@ img {
   box-shadow: 0 2px 5px 0 hsl(0, 100%, 0%, 0.1);
 
   > *:not(:last-child) {
-    margin-block-end: 0.625rem;
+    margin-block-end: 0.825rem;
   }
 }
 
@@ -108,6 +118,7 @@ img {
     height: 100%;
     object-fit: cover;
     object-position: center;
+    transition: scale 300ms;
   }
 }
 
@@ -179,5 +190,40 @@ ul {
   }
   100% {
     background-color: hsl(0, 0%, 90%);
+  }
+}
+
+.description-modal {
+  display: none;
+  opacity: 0;
+  transition-property: display opacity;
+  transition-duration: 300ms;
+  transition-behavior: allow-discrete;
+
+  .description-modal-container {
+    translate: 0 50px;
+    scale: 0.9;
+    transition:
+      scale 250ms,
+      translate 250ms;
+  }
+}
+
+.description-modal.show {
+  display: grid;
+  opacity: 1;
+
+  .description-modal-container {
+    translate: 0 0;
+    scale: 1;
+  }
+
+  @starting-style {
+    opacity: 0;
+
+    .description-modal-container {
+      translate: 0 50px;
+      scale: 0.9;
+    }
   }
 }

@@ -9,7 +9,7 @@
     <script src="./src/app.js" defer></script>
   </head>
   <body class="">
-    <header class="bg-(--primary) px-4 select-none">
+    <header class="fixed top-0 left-0 z-10 w-full bg-(--primary) px-4 select-none">
       <div class="mx-auto flex h-[60px] max-w-[1650px] items-center justify-between md:h-[90px]">
         <span class="block">
           <svg class="max-md:w-[120px]" width="136" height="19" viewBox="0 0 136 19" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -44,9 +44,9 @@
               <span class="absolute -inset-2"></span>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M10.5859 12L2.79297 4.20706L4.20718 2.79285L12.0001 10.5857L19.793 2.79285L21.2072 4.20706L13.4143 12L21.2072 19.7928L19.793 21.2071L12.0001 13.4142L4.20718 21.2071L2.79297 19.7928L10.5859 12Z"></path></svg>
             </button>
-            <a class="px-2 py-2 max-md:w-fit" href="#">About</a>
+            <a class="px-2 py-2 max-md:w-fit" href="#about">About</a>
             <a class="px-2 py-2 max-md:w-fit" href="#">Gallery</a>
-            <a class="px-2 py-2 max-md:w-fit" href="#">Plant a tree</a>
+            <a class="px-2 py-2 max-md:w-fit" href="#plant-a-tree">Plant a tree</a>
           </div>
         </nav>
 
@@ -60,7 +60,7 @@
       </div>
     </header>
 
-    <section class="relative bg-(--hero-bg)">
+    <section class="relative bg-(--hero-bg) pt-[60px] md:pt-[90px]">
       <div class="mx-auto flex min-h-[200px] max-w-[1920px] items-end justify-between select-none">
         <div>
           <img class="" src="./src/assets/hero-leaf1.png" alt="hero leaf 1" />
@@ -84,10 +84,10 @@
         <div class="max-lg:space-y-4">
           <div class="flex justify-between lg:hidden">
             <button data-category-modal-btn class="rounded-md border border-zinc-200 bg-white px-4 py-1">Select categories</button>
-            <button class="rounded-md border border-zinc-200 bg-white px-4 py-1">Cart</button>
+            <button data-cart-modal-btn class="rounded-md border border-zinc-200 bg-white px-4 py-1">Cart</button>
           </div>
 
-          <div class="gap-4 lg:grid lg:grid-cols-[250px_1fr_250px]">
+          <div id="plant-a-tree" class="scroll-mt-[180px] gap-4 lg:grid lg:grid-cols-[250px_1fr_250px]">
             <div data-category-modal class="category-modal max-lg:fixed max-lg:inset-0 max-lg:z-20 max-lg:bg-black/30">
               <div data-category-modal-container class="category-modal-container h-full max-lg:max-w-[300px] max-lg:bg-white max-lg:p-4 max-sm:max-w-[250px]">
                 <h4 class="mb-4 text-xl font-semibold">Categories</h4>
@@ -111,11 +111,11 @@
                 </div>
               </div>
 
-              <div>
+              <div id="about" class="scroll-mt-[100px] md:scroll-mt-[130px]">
                 <h2 class="mb-12 text-center text-[clamp(1.225rem,1.0211rem+0.8158vw,2rem)]">About the Campaign</h2>
-                <div class="items-center gap-6 md:flex">
-                  <div class="flex-1">
-                    <img src="./src/assets/about.png" alt="" />
+                <div class="items-center gap-6 max-md:space-y-8 md:flex">
+                  <div class="w-full flex-1">
+                    <img class="w-full" src="./src/assets/about.png" alt="" />
                   </div>
 
                   <div class="grid flex-1 gap-6 font-light opacity-80">
@@ -130,8 +130,8 @@
               </div>
             </div>
 
-            <div class="cart-container">
-              <div class="rounded-lg bg-white p-4">
+            <div data-cart-modal class="cart-modal max-lg:fixed max-lg:inset-0 max-lg:z-20 max-lg:bg-black/30">
+              <div data-cart-modal-container class="cart-modal-container bg-white p-4 max-lg:h-full max-lg:max-w-[300px] max-lg:bg-white max-lg:p-4 max-sm:max-w-[250px] lg:rounded-lg">
                 <h4 class="mb-4 text-xl font-semibold">Your Cart</h4>
                 <div data-cart-container class="mb-2 grid gap-2">
                   <!-- Cart items are added through js -->
@@ -146,6 +146,7 @@
         </div>
       </section>
     </main>
+
     <section class="bg-(--hero-bg) px-4 py-22">
       <div class="mx-auto max-w-[1650px]">
         <h2 class="mb-6 text-center text-[clamp(1.225rem,1.0211rem+0.8158vw,2rem)] font-semibold">Our Impact</h2>
@@ -191,5 +192,15 @@
         <p class="text-center font-light text-white">© 2025 Green Earth. All Rights Reserved.</p>
       </div>
     </footer>
+
+    <!-- Description modal -->
+    <div data-description-modal class="description-modal fixed inset-0 z-100 place-items-center overflow-y-auto bg-black/30 p-4">
+      <div data-description-modal-container class="description-modal-container w-full max-w-[650px] rounded-xl bg-white px-6 py-4">
+        <div data-description-modal-content-container class="space-y-3">
+          <!-- Description contents are added through js -->
+        </div>
+        <button data-description-modal-close-btn class="mt-6 ml-auto block rounded-md bg-zinc-200 px-3 py-1.5 text-sm font-medium">Close</button>
+      </div>
+    </div>
   </body>
 </html>

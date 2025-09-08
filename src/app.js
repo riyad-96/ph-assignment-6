@@ -3,6 +3,9 @@ const navMenu = document.querySelector('[data-nav]');
 const categoriesContainer = document.querySelector('[data-categories-container]');
 const plantsContainer = document.querySelector('[data-plants-container]');
 const categoryModal = document.querySelector('[data-category-modal]');
+const cartModal = document.querySelector('[data-cart-modal]');
+const descriptionModal = document.querySelector('[data-description-modal]');
+const descriptionModalContentContainer = document.querySelector('[data-description-modal-content-container]');
 
 // svg's
 const svg = {
@@ -22,20 +25,22 @@ function eachPlantCard(eachPlant) {
   const { id, category, name, description, price, image } = eachPlant;
   return `
     <div class="each-plant-card">
-      <div class="each-plant-card-img-container relative">
-        <span class="absolute inset-0 z-5"></span>
-        <div class="img-loader absolute inset-0 z-2"></div>
-        <img data-plant-img class="size-full object-cover object-center" src="${image}" alt="${name}" loading="lazy"/>
+      <div data-description-trigger data-plant-id="${id}" class="pointer-fine:cursor-pointer group space-y-2">
+        <div class="each-plant-card-img-container relative overflow-hidden">
+          <span class="absolute inset-0 z-5"></span>
+          <div class="img-loader absolute inset-0 z-2"></div>
+          <img data-plant-img class="size-full object-cover object-center block pointer-fine:group-hover:scale-[1.2]" src="${image}" alt="${name}" loading="lazy"/>
+        </div>
+        <div class="each-plant-card-text-container">
+          <h5>${name}</h5>
+          <p>${description}</p>
+        </div>
+        <div class="each-plant-card-category-container">
+          <span>${category}</span>
+          <span>৳${price}</span>
+        </div>
       </div>
-      <div class="each-plant-card-text-container">
-        <h5>${name}</h5>
-        <p>${description}</p>
-      </div>
-      <div class="each-plant-card-category-container">
-        <span>${category}</span>
-        <span>৳${price}</span>
-      </div>
-      <button data-plant-id="${id}" data-cart-btn class="add-to-cart-btn">Add to Cart</button>
+        <button data-plant-id="${id}" data-cart-btn class="add-to-cart-btn">Add to Cart</button>
     </div>
   `;
 }
@@ -165,6 +170,23 @@ function removeFromCart(btn) {
   }
 }
 
+// show description modal
+function showDescriptionModal(id) {
+  const expectedPlant = plants.find((eachPlant) => eachPlant.id == id);
+  if (expectedPlant) {
+    const { category, name, description, price, image } = expectedPlant;
+    descriptionModalContentContainer.innerHTML = `
+      <h3 class="text-2xl font-bold">${name}</h3>
+      <div class="aspect-3/2 overflow-hidden rounded-lg">
+        <img class="size-full object-cover object-center" src="${image}" alt="${name}"/>
+      </div>
+      <p><span class="font-bold">Category:</span> <span>${category}</span></p>
+      <p><span class="font-bold">Price:</span> ৳${price}</p>
+      <p><span class="font-bold">Description:</span> ${description}</p>
+    `;
+  }
+}
+
 //! listeners
 document.addEventListener('click', (e) => {
   // navigation menu functionality
@@ -196,30 +218,69 @@ document.addEventListener('click', (e) => {
     categoryBtn.classList.add('active');
     categoryModal.classList.remove('show');
     renderPlantsByCategory(categoryBtn.dataset.categoryId);
+    return;
   }
 
   // add to cart
   const addToCartBtn = e.target.closest('[data-cart-btn]');
   if (addToCartBtn) {
     addToCart(addToCartBtn);
+    return;
   }
   // remove from cart
   const removeFromCartBtn = e.target.closest('[data-cart-remove-btn]');
   if (removeFromCartBtn) {
     removeFromCart(removeFromCartBtn);
+    return;
   }
 
-  // Category & cart modal
+  // category modal
   const categoryModalBtn = e.target.closest('[data-category-modal-btn]');
   if (categoryModalBtn) {
     categoryModal.classList.add('show');
+    return;
   }
-
   const categoryModalContainer = e.target.closest('[data-category-modal-container]');
   if (categoryModalContainer) return;
-
   const categoryModalMain = e.target.closest('[data-category-modal]');
   if (categoryModalMain) {
     categoryModal.classList.remove('show');
+    return;
+  }
+  // cart modal
+  const cartModalBtn = e.target.closest('[data-cart-modal-btn]');
+  if (cartModalBtn) {
+    cartModal.classList.add('show');
+    return;
+  }
+  const cartModalContainer = e.target.closest('[data-cart-modal-container]');
+  if (cartModalContainer) return;
+  const cartModalMain = e.target.closest('[data-cart-modal]');
+  if (cartModalMain) {
+    cartModal.classList.remove('show');
+    return;
+  }
+
+  // description modal
+  const descriptionToggler = e.target.closest('[data-description-trigger]');
+  if (descriptionToggler) {
+    descriptionModal.classList.add('show');
+    showDescriptionModal(descriptionToggler.dataset.plantId);
+    document.body.style.overflow = 'hidden';
+    return;
+  }
+  const descriptionCloseBtn = e.target.closest('[data-description-modal-close-btn]');
+  if (descriptionCloseBtn) {
+    descriptionModal.classList.remove('show');
+    document.body.style.overflow = 'auto';
+    return;
+  }
+  const descriptionModalContainer = e.target.closest('[data-description-modal-container]');
+  if (descriptionModalContainer) return;
+  const descriptionModalMain = e.target.closest('[data-description-modal]');
+  if (descriptionModalMain) {
+    document.body.style.overflow = 'auto';
+    descriptionModal.classList.remove('show');
+    return;
   }
 });
