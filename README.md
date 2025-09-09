@@ -21,13 +21,13 @@
 
 - Re-declaration:
   - `var`: `var` can be Re-declared with same name. e.g. `var speech = 'Hello world';` again `var speech = 'Hello coders';`
-  - `let`: `let` can't be Re-declared. e.g. `let speech = 'Hello world';` again `let speech = 'Hello coders';` now you get an error.
+  - `let`: `let` can't be Re-declared. e.g. `let speech = 'Hello world';` again `let speech = 'Hello coders';` now we get an error.
   - `const`: same as `let`.
 
 - Re-assignment:
-  - `var`: `var` can be Re-assigned. e.g. `var speech = 'Hello world';` and you can do `speech = 'Hello coders';`
+  - `var`: `var` can be Re-assigned. e.g. `var speech = 'Hello world';` and we can do `speech = 'Hello coders';`
   - `let`: same as `var`
-  - `const`: `const` can't be Re-assigned. e.g. `const speech = 'Hello world';` again `speech = 'Hello coders';` now you get an error.
+  - `const`: `const` can't be Re-assigned. e.g. `const speech = 'Hello world';` again `speech = 'Hello coders';` now we get an error.
 
 #### 2. Difference between `map()`, `forEach()` and `filter()`:
 
