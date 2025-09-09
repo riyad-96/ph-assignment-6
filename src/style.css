@@ -31,7 +31,7 @@ img {
     cursor: pointer;
   }
 }
-button:active {
+button:not(.category-select-btn):active {
   translate: 0 1px;
 }
 
