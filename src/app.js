@@ -35,12 +35,12 @@ function eachPlantCard(eachPlant) {
           <h5>${name}</h5>
           <p>${description}</p>
         </div>
-        <div class="each-plant-card-category-container">
-          <span>${category}</span>
-          <span>৳${price}</span>
-        </div>
       </div>
-        <button data-plant-id="${id}" data-cart-btn class="add-to-cart-btn">Add to Cart</button>
+      <div class="each-plant-card-category-container">
+        <span>${category}</span>
+        <span>৳${price}</span>
+      </div>
+      <button data-plant-id="${id}" data-cart-btn class="add-to-cart-btn">Add to Cart</button>
     </div>
   `;
 }
@@ -280,8 +280,8 @@ document.addEventListener('click', (e) => {
     descriptionModal.classList.remove('show');
     return;
   }
-});
 
-const arr = [1, 2]
-const [a, b] = arr;
-console.log(a, b);
+  // reload page
+  const reloadBtn = e.target.closest('[data-page-reload-button]');
+  if (reloadBtn) window.location.reload();
+});

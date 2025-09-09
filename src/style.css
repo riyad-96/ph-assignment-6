@@ -31,6 +31,9 @@ img {
     cursor: pointer;
   }
 }
+button:active {
+  translate: 0 1px;
+}
 
 @media (width < 768px) {
   [data-nav] {
@@ -182,6 +185,12 @@ img {
   padding-block: 0.625rem;
   border-radius: 100rem;
   font-weight: 400;
+
+  @media (pointer: fine) {
+    &:hover {
+      background-color: hsl(from var(--primary) h s calc(l + 5));
+    }
+  }
 }
 
 ul {

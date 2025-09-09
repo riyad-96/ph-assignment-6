@@ -11,7 +11,7 @@
   <body class="">
     <header class="fixed top-0 left-0 z-10 w-full bg-(--primary) px-4 select-none">
       <div class="mx-auto flex h-[60px] max-w-[1650px] items-center justify-between md:h-[90px]">
-        <span class="block">
+        <span data-page-reload-button class="block py-3 pointer-fine:cursor-pointer">
           <svg class="max-md:w-[120px]" width="136" height="19" viewBox="0 0 136 19" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M12.1364 6.33374C11.9943 5.87351 11.7983 5.46158 11.5483 5.09795C11.304 4.72863 11.0085 4.41329 10.6619 4.15192C10.321 3.89056 9.92898 3.69454 9.4858 3.56385C9.04261 3.42749 8.55966 3.35931 8.03693 3.35931C7.09943 3.35931 6.2642 3.5951 5.53125 4.0667C4.7983 4.53829 4.22159 5.23147 3.80114 6.14624C3.38636 7.05533 3.17898 8.16329 3.17898 9.4701C3.17898 10.7883 3.38636 11.9048 3.80114 12.8195C4.21591 13.7343 4.79261 14.4303 5.53125 14.9076C6.26989 15.3792 7.12784 15.615 8.10511 15.615C8.99148 15.615 9.75852 15.4445 10.4062 15.1036C11.0597 14.7627 11.5625 14.2798 11.9148 13.6548C12.267 13.0241 12.4432 12.2854 12.4432 11.4389L13.1591 11.5497H8.42045V9.07806H15.5028V11.1747C15.5028 12.669 15.1847 13.9616 14.5483 15.0525C13.9119 16.1434 13.0369 16.9843 11.9233 17.5752C10.8097 18.1604 9.53125 18.4531 8.08807 18.4531C6.48011 18.4531 5.06818 18.0923 3.85227 17.3707C2.64205 16.6434 1.69602 15.6121 1.0142 14.2769C0.338068 12.936 0 11.3451 0 9.5042C0 8.0951 0.198864 6.83658 0.596591 5.72863C1 4.62067 1.5625 3.68033 2.28409 2.9076C3.00568 2.12919 3.85227 1.53829 4.82386 1.13488C5.79545 0.725786 6.85227 0.52124 7.99432 0.52124C8.96023 0.52124 9.8608 0.663286 10.696 0.947377C11.5312 1.22579 12.2727 1.62351 12.9205 2.14056C13.5739 2.6576 14.1108 3.27124 14.5312 3.98147C14.9517 4.6917 15.2273 5.47579 15.358 6.33374H12.1364Z"
@@ -51,7 +51,7 @@
         </nav>
 
         <div class="flex items-center gap-4">
-          <button class="rounded-full bg-(--secondary) px-3 py-1 text-(--primary) md:px-5 md:py-3">Plant a Tree</button>
+          <button class="rounded-full bg-(--secondary) px-3 py-1 text-(--primary) md:px-5 md:py-3 pointer-fine:hover:opacity-90">Plant a Tree</button>
           <button data-nav-open-btn class="relative grid text-white md:hidden">
             <span class="absolute -inset-2"></span>
             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M3 4H21V6H3V4ZM3 11H21V13H3V11ZM3 18H21V20H3V18Z"></path></svg>
@@ -60,7 +60,7 @@
       </div>
     </header>
 
-    <section class="relative bg-(--hero-bg) pt-[60px] md:pt-[90px]">
+    <section class="relative bg-(--hero-bg) pt-[200px] md:pt-[160px] lg:pt-[90px]">
       <div class="mx-auto flex min-h-[200px] max-w-[1920px] items-end justify-between select-none">
         <div>
           <img class="" src="./src/assets/hero-leaf1.png" alt="hero leaf 1" />
@@ -74,7 +74,7 @@
       <div class="absolute top-1/2 left-1/2 z-3 w-[calc(100%_-_2rem)] max-w-[630px] -translate-1/2 rounded-xl py-4 text-center md:space-y-2">
         <h1 class="text-[length:clamp(1.525rem,1.1368rem+1.5526vw,3rem)] font-bold">Plant a Tree, Grow a Future</h1>
         <p class="max-md:text-sm">Join our mission to plant 1 million trees and make the Earth greener for future generations.</p>
-        <button class="mx-auto mt-4 block rounded-full bg-(--secondary) px-5 py-2 font-medium text-(--primary) md:mt-8 md:py-3">Get Involved</button>
+        <button class="mx-auto mt-4 block rounded-full bg-(--secondary) px-5 py-2 font-medium text-(--primary) md:mt-8 md:py-3 pointer-fine:hover:opacity-90">Get Involved</button>
       </div>
     </section>
 
@@ -83,8 +83,8 @@
         <h2 class="text-center text-[clamp(1.225rem,1.0211rem+0.8158vw,2rem)]">Choose Your Trees</h2>
         <div class="max-lg:space-y-4">
           <div class="flex justify-between lg:hidden">
-            <button data-category-modal-btn class="rounded-md border border-zinc-200 bg-white px-4 py-1">Select categories</button>
-            <button data-cart-modal-btn class="rounded-md border border-zinc-200 bg-white px-4 py-1">Cart</button>
+            <button data-category-modal-btn class="rounded-md border border-zinc-200 bg-white px-4 py-1 pointer-fine:hover:bg-zinc-100">Select categories</button>
+            <button data-cart-modal-btn class="rounded-md border border-zinc-200 bg-white px-4 py-1 pointer-fine:hover:bg-zinc-100">Cart</button>
           </div>
 
           <div id="plant-a-tree" class="scroll-mt-[180px] gap-4 lg:grid lg:grid-cols-[250px_1fr_250px]">
