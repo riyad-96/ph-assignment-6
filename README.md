@@ -67,7 +67,7 @@ console.log(userName, userAge); // Riyad 23
 
 #### 5. Template literals in ES6 made dev life easier
 
-- Instead of using `+` to concatenate strings that is not very reading friendly, we can use template literals to add variables straight into strings.
+- Instead of using `+` to concatenate strings which is not very reading friendly, we can use template literals to add variables straight into strings.
 
 ```javascript
 const a = 'Hello';
